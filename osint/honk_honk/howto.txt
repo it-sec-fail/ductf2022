@@ -1,0 +1,4 @@
+some googling around brought me to https://free-rego-check.service.nsw.gov.au/
+
+There we can search for the Rego 23HONK and find the car.
+
