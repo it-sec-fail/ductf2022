@@ -1,0 +1,13 @@
+Download docker container like intended...
+After container is started, we can open a webpage.
+There are 4 images of shrek
+one image is not accessable (view sourcecode - file is flag.jpg)
+exec into the docker container 
+moving to the app directory... there is no flag.jpg
+using find to look if it is somewhere else
+no
+Look into the DockerFile
+The image was later removed.. so it should be in the layers!
+Lets have a look into the filesystem, where the container is stored.
+`/var/lib/docker/overlay2`
+find flag.jpg
